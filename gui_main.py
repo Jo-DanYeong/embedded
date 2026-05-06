@@ -88,7 +88,7 @@ class TemperatureGUI:
         self.stop_btn = ttk.Button(btn_frame, text="중지", command=self._stop_monitoring, state="disabled")
         self.stop_btn.pack(side="left", padx=5)
         
-        self.pir_btn = ttk.Button(btn_frame, text="PIR 켜기", command=self._toggle_pir)
+        self.pir_btn = ttk.Button(btn_frame, text="보안 모드 활성화", command=self._toggle_pir)
         self.pir_btn.pack(side="left", padx=5)
         
         ttk.Button(btn_frame, text="종료", command=self._quit).pack(side="left", padx=5)
@@ -179,16 +179,16 @@ class TemperatureGUI:
     def _toggle_pir(self):
         if self.pir_sensor and self.pir_sensor.monitoring:
             self.pir_sensor.stop_monitoring()
-            self.pir_btn.config(text="PIR 켜기")
+            self.pir_btn.config(text="보안 모드 활성화")
             self.motion_label.config(text="비활성", foreground="black")
             self._log("PIR 센서를 껐습니다.")
         else:
             try:
                 self.pir_sensor = PIRSensor(pir_pin=22, callback=self._pir_callback)
                 self.pir_sensor.start_monitoring()
-                self.pir_btn.config(text="PIR 끄기")
+                self.pir_btn.config(text="보안 모드 비활성화")
                 self.motion_label.config(text="감시 중...", foreground="green")
-                self._log("PIR 보안 모드 가동 중...")
+                self._log("보안 모드 가동 중...")
             except Exception as e:
                 messagebox.showerror("PIR 오류", str(e))
 

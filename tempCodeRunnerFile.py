@@ -1,1 +1,0 @@
-self.monitor_thread = threading.Thread(target=self._monitor_loop, daemon=True)
